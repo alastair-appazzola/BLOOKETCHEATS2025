@@ -1,0 +1,2 @@
+# BLOOKETCHEATS2025
+Blooket Cheats
